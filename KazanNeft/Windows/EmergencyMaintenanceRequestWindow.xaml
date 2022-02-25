@@ -1,0 +1,101 @@
+﻿<Window x:Class="KazanNeft.Windows.EmergencyMaintenanceRequestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KazanNeft.Windows"
+        mc:Ignorable="d"
+        Title="Запрос на экстренное техническое обслуживание" 
+        Height="400" 
+        Width="650"
+        WindowStartupLocation="CenterScreen"
+        Icon="..\Resources\KN Ru Colors.png"
+        FontFamily="Verdana Regular">
+    
+    <DockPanel>
+        <GroupBox DockPanel.Dock="Top"
+                  Header="Выбранный актив"
+                  Margin="10"
+                  BorderBrush="Black">
+            <StackPanel Orientation="Horizontal"
+                        Margin="10">
+                <TextBlock Margin="0 0 20 0">
+                    <TextBlock Text="Актив:"/>
+                    <TextBlock Text="{Binding AssetSN}"
+                               FontFamily="Verdana Bold"/>
+                </TextBlock>
+                <TextBlock Margin="0 0 20 0">
+                    <TextBlock Text="Название актива:"/>
+                    <TextBlock Text="{Binding AssetName}"
+                               FontFamily="Verdana Bold"/>
+                </TextBlock>
+                <TextBlock>
+                    <TextBlock Text="Отдел:"/>
+                    <TextBlock Text="{Binding Path=DepartmentLocations.Departments.Name}"
+                               FontFamily="Verdana Bold"/>
+                </TextBlock>
+            </StackPanel>
+        </GroupBox>
+        
+        <StackPanel DockPanel.Dock="Bottom" 
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+            <Button Content="Отправить запрос"
+                    Margin="10"
+                    Padding="5"
+                    Background="#e54128"
+                    x:Name="BtnSave"
+                    Click="BtnSave_Click"/>
+            <Button Content="Отмена"
+                    Margin="10"
+                    Padding="5"
+                    Background="#e54128"
+                    Name="BtnCancel"
+                    Click="BtnCancel_Click"/>
+        </StackPanel>
+
+        <GroupBox Header="Запросить отчет"
+                  Margin="10 0 10 0"
+                  BorderBrush="Black">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal"
+                            Margin="10">
+                    <TextBlock Text="Приоритет:"
+                               VerticalAlignment="Center"
+                               Margin="0 0 10 0"
+                               Width="80"/>
+                    <ComboBox Width="200"
+                              Name="ComboBoxPrioritet"
+                              DisplayMemberPath="Name"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical"
+                            Margin="10"
+                            HorizontalAlignment="Left">
+                    <TextBlock Text="Описание чрезвычайной ситуации:"
+                               Margin="0 0 0 5"/>
+                    <TextBox AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             Width="450"
+                             BorderBrush="Black"
+                             Margin="90 0 0 0"
+                             Height="40"
+                             x:Name="TextBoxDescriptionEmergency"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical"
+                            Margin="10"
+                            HorizontalAlignment="Left">
+                    <TextBlock Text="Другие факторы:"
+                               Margin="0 0 0 5"/>
+                    <TextBox AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             Width="450"
+                             BorderBrush="Black"
+                             Margin="90 0 0 0"
+                             Height="40"
+                             x:Name="TextBoxOtherConsiderations"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+    </DockPanel>
+</Window>

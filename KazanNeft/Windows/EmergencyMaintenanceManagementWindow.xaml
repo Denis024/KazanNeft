@@ -1,0 +1,64 @@
+﻿<Window x:Class="KazanNeft.Windows.EmergencyMaintenanceManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KazanNeft.Windows"
+        mc:Ignorable="d"
+        Title="Управление аварийным обслуживанием"
+        Height="450" 
+        MinHeight="450"
+        Width="700"
+        MinWidth="700"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Verdana Regular"
+        Icon="..\Resources\KN Ru Colors.png">
+
+    <DockPanel Margin="10">
+        <TextBlock Text="Доступные активы:"
+                   HorizontalAlignment="Left"
+                   FontFamily="Verdana Bold"
+                   Margin="0 0 0 10"
+                   DockPanel.Dock="Top"/>
+
+        <Button Content="Отправить запрос на экстренное техническое обслуживание"
+                DockPanel.Dock="Bottom"
+                Margin="0 10 0 0"
+                HorizontalAlignment="Left"
+                Padding="5"
+                Background="#e54128"
+                x:Name="BtnSend"
+                Click="BtnSend_Click"/>
+
+        <TextBlock Visibility="Hidden"
+                   x:Name="TextBlockID"
+                   Text="{Binding ID}"/>
+
+        <DataGrid x:Name="DataGridAssets"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  AlternatingRowBackground="LightGray"
+                  HorizontalGridLinesBrush="Transparent">
+            <DataGrid.Columns>                
+                <DataGridTextColumn Header="Актив"
+                                    Binding="{Binding AssetSN}"
+                                    Width="120*"/>
+                <DataGridTextColumn Header="Название актива"
+                                    Binding="{Binding AssetName}"
+                                    Width="170*"/>
+                <DataGridTemplateColumn Header="Последнее ТО"
+                                    Width="120*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock DataContext="{Binding EmergencyMaintenances}"
+                                       Text="{Binding EMEndDate, StringFormat=dd.MM.yyyy, FallbackValue='--', TargetNullValue='--'}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Количество аварийных ремонтов"
+                                    Width="230*"
+                                    Binding="{Binding Path=EmergencyMaintenances.Count}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

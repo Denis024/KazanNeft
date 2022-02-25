@@ -1,0 +1,67 @@
+﻿<Window x:Class="KazanNeft.Windows.EmergencyMaintenanceManagementWindow2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KazanNeft.Windows"
+        mc:Ignorable="d"
+        Title="Управление аварийным обслуживанием" 
+        Height="450" 
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Verdana Regular"
+        Icon="..\Resources\KN Ru Colors.png">
+    
+    <DockPanel>
+        <TextBlock Text="Список активов, требующих экстренного обслуживания:"
+                   FontFamily="Verdana Bold"
+                   Margin="10"
+                   DockPanel.Dock="Top"/>
+
+        <Button DockPanel.Dock="Bottom"
+                Margin="10"
+                Content="Управление запросом"
+                HorizontalAlignment="Left"
+                Padding="5"
+                Background="#e54128"
+                x:Name="BtnRequest"
+                Click="BtnRequest_Click"/>
+
+        <TextBlock Text="{Binding ID}"
+                   x:Name="TextBlockID"
+                   Visibility="Hidden"/>
+
+        <DataGrid x:Name="DataGridAssets2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  AlternatingRowBackground="LightGray"
+                  HorizontalGridLinesBrush="Transparent"
+                  Margin="10 0 10 0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Актив"
+                                    Width="100*"
+                                    Binding="{Binding Path=Assets.AssetSN}"/>
+                <DataGridTextColumn Header="Название актива"
+                                    Width="150*"
+                                    Binding="{Binding Path=Assets.AssetName}"/>
+                <DataGridTextColumn Header="Дата запроса"
+                                    Width="90*"
+                                    Binding="{Binding Path=EMReportDate, StringFormat=dd.MM.yyyy}"/>
+                <DataGridTemplateColumn Header="полное имя сотрудника"
+                                        Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock Text="{Binding Path=Assets.Employees.FirstName}"/>
+                                <TextBlock Text="{Binding Path=Assets.Employees.LastName}"/>
+                            </TextBlock>                            
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Отдел"
+                                    Width="150"
+                                    Binding="{Binding Path=Assets.DepartmentLocations.Departments.Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>
